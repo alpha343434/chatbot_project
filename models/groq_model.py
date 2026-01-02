@@ -8,10 +8,8 @@ from groq import Groq
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 
-# .env dosyasını yükle
 load_dotenv()
 
-# SINIF ADI DÜZELTİLDİ: GroqChatbotRAG
 class GroqChatbotRAG:
     def __init__(self, api_key: Optional[str] = None, train_df: Optional[pd.DataFrame] = None):
         """
@@ -19,7 +17,6 @@ class GroqChatbotRAG:
         """
         self.api_key = api_key or os.environ.get("GROQ_API_KEY")
         if not self.api_key:
-            # Hata fırlatmak yerine None dönelim ki Streamlit çökmesin, uyarı versin
             print("UYARI: GROQ_API_KEY bulunamadı!")
             
         self.client = Groq(api_key=self.api_key)
@@ -30,7 +27,6 @@ class GroqChatbotRAG:
             "check_ingredients", "goodbye"
         ]
         
-        # Embedding modelini bir kere yükle
         print("Model yükleniyor: paraphrase-multilingual-MiniLM-L12-v2...")
         try:
             self.embedding_model = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
@@ -141,9 +137,9 @@ Menüden Örnekler: Fıstıklı Baklava, Sütlaç, San Sebastian Cheesecake, Tir
         # 3. Mesaj geçmişini hazırla
         messages = [{"role": "system", "content": system_prompt}]
         
-        # Eski konuşmaları ekle (Son 4 mesajı tutmak token tasarrufu sağlar)
+        # Eski konuşmaları ekle 
         # History formatı: {'role': 'user', 'content': '...'}
-        messages.extend(conversation_history[-4:]) 
+        messages.extend(conversation_history[-10:]) 
         
         # Yeni mesajı ekle
         messages.append({"role": "user", "content": user_message})

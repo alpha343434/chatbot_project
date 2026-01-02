@@ -4,20 +4,15 @@ import os
 import pandas as pd 
 from dotenv import load_dotenv
 
-# --- YOL AYARI (PATH CONFIGURATION) ---
-# Mevcut dosyanın (streamlit_app.py) bulunduğu klasörü bul
 current_dir = os.path.dirname(os.path.abspath(__file__))
-# Bir üst klasöre (CHATBOT_PROJECT) çık
 parent_dir = os.path.dirname(current_dir)
-# Bu üst klasörü Python'un arama yollarına ekle
 sys.path.append(parent_dir)
 
-# Artık models klasörü sorunsuz import edilebilir
 from models.groq_model import GroqChatbotRAG
 from models.mistral_model import MistralChatbot
 from dotenv import load_dotenv
 
-# .env yükle
+
 load_dotenv()
 
 # --- SAYFA AYARLARI ---
@@ -27,7 +22,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# --- CSS (Sadece Intent Badge için minimal stil) ---
+# --- CSS ---
 st.markdown("""
 <style>
     .stDeployButton {display:none;}
@@ -45,7 +40,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- MODEL YÜKLEME (CACHE) ---
-# Bu fonksiyonlar sadece bir kez çalışır, her tıklamada modeli tekrar yüklemez.
 @st.cache_resource
 def load_groq_model():
     try:
@@ -151,7 +145,7 @@ if prompt := st.chat_input("Hangi tatlıyı istersiniz?"):
                 ]
                 
                 # Yanıt al
-                # Not: Her iki modelinizin chat fonksiyonu (response, intent) döndürmeli
+                # Not: Her iki modelin chat fonksiyonu (response, intent) döndürmeli
                 response_text, intent = active_bot.chat(prompt, conversation_history=history_for_model)
                 
                 # Ekrana bas

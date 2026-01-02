@@ -18,13 +18,11 @@ class MistralChatbot:
         self.api_key = api_key or os.environ.get("MISTRAL_API_KEY")
         
         if not self.api_key:
-            # Streamlit'in çökmemesi için sadece print, raise değil
             print("UYARI: MISTRAL_API_KEY bulunamadı! .env dosyasını kontrol edin.")
             self.client = None
         else:
             self.client = Mistral(api_key=self.api_key)
             
-        # Model seçimi (Daha zeki ve güncel model)
         self.model = "open-mistral-nemo" 
         
         self.intents = [
