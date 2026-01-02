@@ -1,0 +1,25 @@
+# Sanal Ortam (En önemlisi, hatanın sebebi buydu)
+venv/
+.venv/
+env/
+ENV/
+
+# Python Önbellek Dosyaları
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Gizli Anahtarlar ve Ayarlar
+.env
+.flaskenv
+
+# İşletim Sistemi Dosyaları
+.DS_Store
+Thumbs.db
+
+# IDE (Kod Editörü) Ayarları
+.vscode/
+.idea/
+
+# Büyük Veri Dosyaları (Opsiyonel - Eğer xlsx dosyaların çok büyükse bunları da ekleyebilirsin)
+data/
