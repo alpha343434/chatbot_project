@@ -1,36 +1,59 @@
 # 🍰 Tatlış Chatbot: AI Destekli Tatlı Mağazası Asistanı
 
-Bu proje, bir tatlı mağazası için geliştirilmiş, **LLM (Büyük Dil Modelleri)** tabanlı akıllı bir sohbet asistanıdır. Proje kapsamında **Groq** ve **Mistral AI** modelleri karşılaştırmalı olarak kullanılmış; **RAG (Retrieval-Augmented Generation)** ve **Few-Shot Learning** teknikleri uygulanmıştır.
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![Streamlit](https://img.shields.io/badge/Framework-Streamlit-red)
+![Models](https://img.shields.io/badge/LLMs-Groq%20%26%20Mistral-green)
+
+**Tatlış Chatbot**, tatlı severler için geliştirilmiş, sipariş alabilen, ürün içerikleri hakkında bilgi veren ve kişiselleştirilmiş öneriler sunan yapay zeka tabanlı bir asistandır.
+
+Bu proje, **Doğal Dil İşleme (NLP)** alanında iki farklı yaklaşımı (**RAG** ve **Few-Shot Learning**) karşılaştırmak ve performanslarını analiz etmek amacıyla geliştirilmiştir.
 
 ## 🚀 Projenin Amacı
 
-Bu ödev projesinin temel amaçları şunlardır:
-1.  Kullanıcı niyetlerini (Intent Classification) doğru tespit etmek.
-2.  Mağaza menüsü ve tatlı içerikleri hakkında doğru bilgiler vermek.
-3.  Farklı LLM mimarilerinin (Llama 3.3 vs Mistral Nemo) performansını kıyaslamak.
-4.  RAG (Vektör tabanlı) ve Few-Shot (Örnek tabanlı) yaklaşımlarını pratikte uygulamak.
+* Müşteri niyetlerini (Intent Classification) %90+ doğrulukla tespit etmek.
+* Farklı LLM mimarilerinin (Llama 3.3 vs Mistral Nemo) performansını kıyaslamak.
+* Vektör tabanlı arama (RAG) ile örnek tabanlı öğrenme (Few-Shot) arasındaki farkları analiz etmek.
 
-## 🛠️ Kullanılan Teknolojiler ve Yöntemler
+## 🧠 Kullanılan Modeller ve Yöntemler
 
-* **Arayüz:** Streamlit
-* **Dil:** Python 3.10+
-* **Model 1 (RAG):** Groq API (Llama-3.3-70b-versatile) + FAISS + SentenceTransformers
-* **Model 2 (Few-Shot):** Mistral API (Open-Mistral-Nemo)
-* **Veri İşleme:** Pandas, Scikit-learn (Performans metrikleri için)
+Projede iki farklı "Agent" mimarisi tasarlanmıştır:
 
-### Niyet Sınıflandırma Kategorileri
-Bot aşağıdaki 5 niyeti anlayacak şekilde eğitilmiştir:
-* `greeting`: Selamlama
-* `order_dessert`: Tatlı siparişi
-* `ask_recommendation`: Öneri isteme
-* `check_ingredients`: İçerik/Malzeme sorma
-* `goodbye`: Vedalaşma
+### 1. Model A: Groq (Llama 3.3) + RAG
+* **Teknoloji:** Groq API, FAISS, SentenceTransformers.
+* **Yöntem (RAG):** Kullanıcı sorusu vektöre çevrilir ve veri tabanındaki en benzer geçmiş diyaloglar bulunarak modele "bağlam" (context) olarak verilir.
+* **Avantajı:** Geniş veri setlerinde (örneğin 1000+ ürünlü menü) çok daha tutarlı cevaplar verir.
 
-## 📂 Kurulum ve Çalıştırma
+### 2. Model B: Mistral (Nemo) + Few-Shot Learning
+* **Teknoloji:** Mistral AI API.
+* **Yöntem (Few-Shot):** Eğitim setinden rastgele seçilen 2-3 örnek diyalog, modelin sistem mesajına (System Prompt) dinamik olarak eklenir.
+* **Avantajı:** Hızlı kurulum, düşük gecikme süresi (latency) ve yüksek genelleme yeteneği.
 
-Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyin.
+## 📂 Proje Yapısı
 
-### 1. Depoyu Klonlayın
 ```bash
-git clone [https://github.com/KULLANICI_ADINIZ/tatli-magazasi-chatbot.git](https://github.com/KULLANICI_ADINIZ/tatli-magazasi-chatbot.git)
-cd tatli-magazasi-chatbot
+tatli-magazasi-chatbot/
+├── app/
+│   └── streamlit_app.py      # Kullanıcı Arayüzü
+├── data/
+│   ├── train_dataset.xlsx    # Eğitim Verisi (800+ satır)
+│   └── test_dataset.xlsx     # Test Verisi (200+ satır)
+├── models/
+│   ├── groq_model.py         # RAG Modeli
+│   └── mistral_model.py      # Few-Shot Modeli
+├── results/                  # Analiz Grafikleri
+│   ├── metrics_comparison.png
+│   └── comparison.csv
+├── benchmark.py              # Performans Test Kodu
+├── requirements.txt          # Kütüphaneler
+└── README.md                 # Dökümantasyon
+
+### 📊 Model Performans Karşılaştırması
+
+Aşağıdaki tablo, test veri seti üzerinde yapılan benchmark sonuçlarını göstermektedir:
+
+| Model | Precision | Recall | F1 Score |
+|-------|-----------|--------|----------|
+| **Groq (Mixtral 8x7B) + RAG** | 0.8475 | 0.7820 | 0.7893 |
+| **Mistral AI (Nemo) + Few-Shot** | 0.7622 | 0.2085 | 0.3224 |
+
+> **Analiz:** Groq modeli, RAG mimarisi sayesinde niyetleri (intents) yakalamada (Recall) ve genel doğrulukta (F1 Score) Mistral modeline göre belirgin bir üstünlük sağlamıştır. Mistral modeli, sınırlı örnek (Few-Shot) ile çalıştığı için bazı niyetleri kaçırmış (düşük Recall) ancak tahmin ettiğinde nispeten yüksek doğruluk (Precision) sergilemiştir.

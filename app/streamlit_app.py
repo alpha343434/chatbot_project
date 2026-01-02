@@ -23,7 +23,7 @@ load_dotenv()
 # --- SAYFA AYARLARI ---
 st.set_page_config(
     page_title="Tatlış Chatbot",
-    page_icon="🍰",
+    page_icon="🧁",
     layout="centered"
 )
 
@@ -83,7 +83,7 @@ with st.sidebar:
     )
     
     st.markdown("---")
-    st.markdown("### 📊 Intent Rehberi")
+    st.markdown("### Intent Rehberi")
     st.caption("Botun anladığı niyetler:")
     st.code("""
 greeting: Merhaba/Selam
@@ -106,7 +106,7 @@ groq_bot = load_groq_model()
 mistral_bot = load_mistral_model()
 
 # --- ANA ARAYÜZ ---
-st.title("🍰 Tatlış Chatbot")
+st.title("🧁 Tatlış Chatbot")
 st.caption("Size en tatlı anlarınızda eşlik eden yapay zeka asistanı.")
 
 # Geçmiş mesajları göster

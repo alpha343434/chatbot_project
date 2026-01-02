@@ -4,7 +4,7 @@ import json
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-from models.groq_model import GroqChatbot
+from models.groq_model import GroqChatbotRAG
 from models.mistral_model import MistralChatbot
 from dotenv import load_dotenv
 import os
@@ -25,7 +25,7 @@ def run_benchmark():
     # Groq testi
     print("\n1. GROQ MODELİ TEST EDİLİYOR...")
     print("-"*60)
-    groq_bot = GroqChatbot()
+    groq_bot = GroqChatbotRAG()
     groq_results = groq_bot.evaluate_model(test_df, train_df, num_few_shot=10)
     
     # Mistral testi
