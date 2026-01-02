@@ -22,4 +22,4 @@ Thumbs.db
 .idea/
 
 # Büyük Veri Dosyaları (Opsiyonel - Eğer xlsx dosyaların çok büyükse bunları da ekleyebilirsin)
-data/
+data/~$chatbot_dataset.xlsx
