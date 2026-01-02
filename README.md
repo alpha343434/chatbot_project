@@ -4,6 +4,8 @@
 ![Streamlit](https://img.shields.io/badge/Framework-Streamlit-red)
 ![Models](https://img.shields.io/badge/LLMs-Groq%20%26%20Mistral-green)
 
+Projenin Videosu: https://drive.google.com/file/d/1y_LKxSf6b4ulPC25Mw7UKmznetR1BuWv/view?usp=sharing
+
 **Tatlış Chatbot**, tatlı severler için geliştirilmiş, sipariş alabilen, ürün içerikleri hakkında bilgi veren ve kişiselleştirilmiş öneriler sunan yapay zeka tabanlı bir asistandır.
 
 Bu proje, **Doğal Dil İşleme (NLP)** alanında iki farklı yaklaşımı (**RAG** ve **Few-Shot Learning**) karşılaştırmak ve performanslarını analiz etmek amacıyla geliştirilmiştir.
